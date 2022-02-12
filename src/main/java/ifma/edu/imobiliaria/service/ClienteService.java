@@ -43,7 +43,7 @@ public class ClienteService {
 
     @Transactional
     public void removePelo(Integer id) {
-        clienteRepository.deleteById(id);
+        clienteRepository.deleteById(Long.valueOf(id));
     }
 
     public Page<Cliente> buscaCom(Pageable paginacao) {
