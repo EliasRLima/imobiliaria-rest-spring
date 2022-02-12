@@ -16,9 +16,12 @@ import java.util.List;
 @Service
 public class ClienteService {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
 
+    @Autowired
+    public ClienteService(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
     public List<Cliente> todos() {
         return clienteRepository.findAll();
     }
