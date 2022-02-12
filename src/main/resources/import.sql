@@ -1,6 +1,6 @@
-insert into clientes(id, nome_cliente, cpf, telefone, email, dt_nascimento) values (1, 'Artur', '11111111111', '989999999', 'artur@email', '11-02-2022');
-insert into clientes(id, nome_cliente, cpf, telefone, email, dt_nascimento) values (2, 'Elias', '11111111111', '989999999', 'elias@email', '11-02-2022');
-insert into clientes(id, nome_cliente, cpf, telefone, email, dt_nascimento) values (3, 'Italo Auau', '11111111111', '989999999', 'auau@email', '11-02-2022');
+insert into clientes(id, nome, cpf, telefone, email, dt_nascimento) values (1, 'Artur', '11111111111', '989999999', 'artur@email', '11-02-2022');
+insert into clientes(id, nome, cpf, telefone, email, dt_nascimento) values (2, 'Elias', '11111111111', '989999999', 'elias@email', '11-02-2022');
+insert into clientes(id, nome, cpf, telefone, email, dt_nascimento) values (3, 'Italo Auau', '11111111111', '989999999', 'auau@email', '11-02-2022');
 
 insert into imoveis(id, tipo_imovel, endereco, cep, dormitorios, banheiros, suites, metragem, valor_aluguel_sug, obs ) values (1, 'residencia', 'numero 103 - rua 01 - bairro 02 - Cidade 03', '00000-000', 2, 1, 0, 50, 200.0, 'A casa tem um fantasma (mas é gente boa)');
 insert into imoveis(id, tipo_imovel, endereco, cep, dormitorios, banheiros, suites, metragem, valor_aluguel_sug, obs ) values (2, 'residencia', 'numero 104 - rua 01 - bairro 02 - Cidade 03', '00000-000', 2, 1, 0, 50, 200.0, null);

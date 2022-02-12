@@ -17,7 +17,7 @@ public class Cliente {
     private Integer id;
 
     @NotNull @NotEmpty @Length(max = 255)
-    private String nome_cliente;
+    private String nome;
 
     @NotNull @NotEmpty @Length(min = 11, max = 11)
     private String cpf;
@@ -38,12 +38,12 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getNome_cliente() {
-        return nome_cliente;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNome_cliente(String nome_cliente) {
-        this.nome_cliente = nome_cliente;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getCpf() {
@@ -95,7 +95,7 @@ public class Cliente {
     public String toString() {
         return "Cliente{" +
                 "id=" + id +
-                ", nome='" + nome_cliente + '\'' +
+                ", nome='" + nome + '\'' +
                 ", telefone='" + telefone + '\'' +
                 '}';
     }
