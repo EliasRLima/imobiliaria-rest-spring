@@ -24,7 +24,7 @@ public class ClienteService {
     }
 
     public Optional<Cliente> buscaPor(Integer id) {
-        return clienteRepository.findById(id);
+        return clienteRepository.findById(Long.valueOf(id));
     }
 
     public List<Cliente> buscaPor(String nome) {

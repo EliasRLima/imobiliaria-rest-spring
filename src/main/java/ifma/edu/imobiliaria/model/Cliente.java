@@ -11,9 +11,7 @@ import org.hibernate.validator.constraints.Length;
 import java.util.Objects;
 
 @Entity
-public class Cliente implements Serializable {
-
-    private static  final long serialVersionUID = 1L;
+public class Cliente {
 
     @Id @GeneratedValue
     private Integer id;
