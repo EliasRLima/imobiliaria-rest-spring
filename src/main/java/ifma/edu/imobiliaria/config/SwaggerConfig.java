@@ -10,11 +10,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class SwaggerConfig {
     @Bean
-    public Docket ImobApi() {
+    public Docket api() {
         return new Docket( DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("ifma.edu.imobiliaria") )
-                .paths(PathSelectors.ant("/**"))
+                .apis(RequestHandlerSelectors.any() )
+                .paths(PathSelectors.any())
                 .build();
 
     }
