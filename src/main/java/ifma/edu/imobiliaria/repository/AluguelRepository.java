@@ -8,7 +8,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AluguelRepository extends JpaRepository<Aluguel, Long> {
-
-    List<Aluguel> findByImovelContaining(String id_imovel );
-    Page<Aluguel> findByImovelContaining(String id_imovel, Pageable paginacao);
 }
