@@ -69,7 +69,7 @@ public class Aluguel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Aluguel aluguel = (Aluguel) o;
-        return Objects.equals(id, imovel.id);
+        return Objects.equals(id, aluguel.id);
     }
 
     @Override
