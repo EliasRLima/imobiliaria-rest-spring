@@ -1,7 +1,6 @@
 package ifma.edu.imobiliaria.model;
 
 import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
