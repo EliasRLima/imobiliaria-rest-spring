@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ImovelService {
@@ -21,6 +22,10 @@ public class ImovelService {
     }
 
     public List<Imovel> todos(){ return  imovelRepository.findAll();}
+
+    public Optional<Imovel> buscaPor(Integer id) {
+        return imovelRepository.findById(Long.valueOf(id));
+    }
 
     public List<Imovel> buscaPor(String nome) {
         return imovelRepository.findByEndContaining(nome);
