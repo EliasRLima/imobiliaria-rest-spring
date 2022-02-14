@@ -125,7 +125,7 @@ public class Imovel {
 
     @Override
     public String toString() {
-        return "Cliente{" +
+        return "Imovel{" +
                 "id=" + id +
                 ", endereco='" + endereco + '\'' +
                 ", valor='" + valor_aluguel_sug + '\'' +
