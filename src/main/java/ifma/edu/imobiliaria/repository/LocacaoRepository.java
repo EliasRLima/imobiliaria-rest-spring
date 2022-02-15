@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
-    List<Locacao> findByImovelContaining(String id_imovel );
-    Page<Locacao> findByImovelContaining(String id_imovel, Pageable paginacao);
+    List<Locacao> findById_movelContaining(String id_imovel );
+    Page<Locacao> findById_imovelContaining(String id_imovel, Pageable paginacao);
 }
