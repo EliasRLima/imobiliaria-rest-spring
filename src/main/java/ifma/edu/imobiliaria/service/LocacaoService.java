@@ -30,11 +30,11 @@ public class LocacaoService {
     }
 
     public List<Locacao> buscaPor(String nome) {
-        return locacaoRepository.findByImovelContaining(nome);
+        return locacaoRepository.findById_imovelContaining(nome);
     }
 
     public Page<Locacao> buscaPor(String nome, Pageable paginacao) {
-        return locacaoRepository.findByImovelContaining(nome, paginacao);
+        return locacaoRepository.findById_imovelContaining(nome, paginacao);
     }
 
     @Transactional
