@@ -29,13 +29,6 @@ public class LocacaoService {
         return locacaoRepository.findById(Long.valueOf(id));
     }
 
-    public List<Locacao> buscaPorImovel(Integer id_imovel) {
-        return locacaoRepository.findById_imovelContaining(id_imovel);
-    }
-
-    public Page<Locacao> buscaPorImovel(Integer id_imovel, Pageable paginacao) {
-        return locacaoRepository.findById_imovelContaining(id_imovel, paginacao);
-    }
 
     @Transactional
     public Locacao salva(Locacao locacao) {
