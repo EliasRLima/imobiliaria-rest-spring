@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface ImovelRepository extends JpaRepository<Imovel, Long> {
 
-    List<Imovel> findByEndContaining(String endereco);
-    Page<Imovel> findByEndContaining(String endereco, Pageable pag);
+    List<Imovel> findByEnderecoContaining(String endereco);
+    Page<Imovel> findByEnderecoContaining(String endereco, Pageable pag);
 }
