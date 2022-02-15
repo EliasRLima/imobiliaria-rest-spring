@@ -29,11 +29,11 @@ public class LocacaoService {
         return locacaoRepository.findById(Long.valueOf(id));
     }
 
-    public List<Locacao> buscaPor(Integer id_imovel) {
+    public List<Locacao> buscaPorImovel(Integer id_imovel) {
         return locacaoRepository.findById_imovelContaining(id_imovel);
     }
 
-    public Page<Locacao> buscaPor(Integer id_imovel, Pageable paginacao) {
+    public Page<Locacao> buscaPorImovel(Integer id_imovel, Pageable paginacao) {
         return locacaoRepository.findById_imovelContaining(id_imovel, paginacao);
     }
 
