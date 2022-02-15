@@ -28,11 +28,11 @@ public class ImovelService {
     }
 
     public List<Imovel> buscaPor(String nome) {
-        return imovelRepository.findByEndContaining(nome);
+        return imovelRepository.findByEnderecoContaining(nome);
     }
 
     public Page<Imovel> buscaPor(String nome, Pageable paginacao) {
-        return imovelRepository.findByEndContaining(nome, paginacao);
+        return imovelRepository.findByEnderecoContaining(nome, paginacao);
     }
 
     @Transactional
