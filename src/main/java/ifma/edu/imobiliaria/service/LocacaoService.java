@@ -29,12 +29,12 @@ public class LocacaoService {
         return locacaoRepository.findById(Long.valueOf(id));
     }
 
-    public List<Locacao> buscaPor(String nome) {
-        return locacaoRepository.findById_imovelContaining(nome);
+    public List<Locacao> buscaPor(Integer id_imovel) {
+        return locacaoRepository.findById_imovelContaining(id_imovel);
     }
 
-    public Page<Locacao> buscaPor(String nome, Pageable paginacao) {
-        return locacaoRepository.findById_imovelContaining(nome, paginacao);
+    public Page<Locacao> buscaPor(Integer id_imovel, Pageable paginacao) {
+        return locacaoRepository.findById_imovelContaining(id_imovel, paginacao);
     }
 
     @Transactional
