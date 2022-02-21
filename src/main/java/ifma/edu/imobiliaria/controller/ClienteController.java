@@ -5,22 +5,13 @@ import ifma.edu.imobiliaria.model.Cliente;
 import ifma.edu.imobiliaria.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.lang.reflect.Field;
-import java.net.URI;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/clientes")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -30,21 +21,15 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @GetMapping
-    public Page<Cliente> lista(@RequestParam(required = false) String nome,
-                               @PageableDefault(sort = "id", direction = Sort.Direction.ASC, page = 0, size = 5)
-                               Pageable paginacao) {
-        if (nome == null) {
-            Page<Cliente> pageClientes = clienteService.buscaCom(paginacao );
-            return pageClientes;
-        } else {
-            Page<Cliente> pageClientes = clienteService.buscaPor(nome, paginacao );
-            return pageClientes;
-        }
+    @RequestMapping( value = "/clientes", method = RequestMethod.GET)
+    public List<Cliente> lista() {
+        List<Cliente> pageClientes = clienteService.todos();
+       return pageClientes;
+
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Cliente> buscaPor(@PathVariable Integer id) {
+    @RequestMapping( value = "/clientes/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Cliente> buscaPor(@PathVariable(value = "id") long id) {
         Optional<Cliente> optional = clienteService.buscaPor(id);
 
         if (optional.isPresent()) {
@@ -54,20 +39,13 @@ public class ClienteController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Cliente> cadastro(@RequestBody @Valid Cliente cliente,
-                                            UriComponentsBuilder builder) {
-
-        final Cliente clienteSalvo = clienteService.salva(cliente);
-        final URI uri = builder
-                .path("/clientes/{id}")
-                .buildAndExpand(clienteSalvo.getId()).toUri();
-
-        return ResponseEntity.created(uri).body(clienteSalvo );
+    @RequestMapping(value = "/clientes", method =  RequestMethod.POST)
+    public Cliente Post(@RequestBody @Valid Cliente cliente) {
+        return clienteService.salva(cliente);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualiza(@PathVariable Integer id,
+    @RequestMapping(value = "/clientes/{id}", method =  RequestMethod.PUT)
+    public ResponseEntity<Cliente> Put(@PathVariable(value = "id") long id,
                                             @RequestBody @Valid Cliente cliente) {
         Optional<Cliente> optional = clienteService.buscaPor(id);
 
@@ -80,8 +58,8 @@ public class ClienteController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> remover(@PathVariable Integer id) {
+    @RequestMapping(value = "/clientes/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> remover(@PathVariable(value = "id") long id) {
         Optional<Cliente> optional = clienteService.buscaPor(id );
 
         if (optional.isPresent()) {
@@ -92,33 +70,4 @@ public class ClienteController {
         return ResponseEntity.notFound().build();
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Cliente> atualizacaoParcial(@PathVariable Integer id,
-                                                      @RequestBody Map<String, Object> campos) {
-        Optional<Cliente> optional = clienteService.buscaPor(id );
-
-        if (optional.isPresent()) {
-            Cliente clienteAtual = optional.get();
-
-            merge(campos, clienteAtual );
-            return this.atualiza(id, clienteAtual );
-
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    private void merge(Map<String, Object> campos, Cliente clienteDestino) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Cliente clienteOrigem = objectMapper.convertValue(campos, Cliente.class );
-
-        campos.forEach((nomePropriedade, valorPropriedade) -> {
-            Field field = ReflectionUtils.findField(Cliente.class, nomePropriedade );
-            field.setAccessible(true );
-
-            Object novoValor = ReflectionUtils.getField(field, clienteOrigem );
-
-            ReflectionUtils.setField(field, clienteDestino, novoValor );
-        });
-    }
 }

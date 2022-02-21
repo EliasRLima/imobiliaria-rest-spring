@@ -27,16 +27,12 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Optional<Cliente> buscaPor(Integer id) {
-        return clienteRepository.findById(Long.valueOf(id));
+    public Optional<Cliente> buscaPor(long id) {
+        return clienteRepository.findById(id);
     }
 
     public List<Cliente> buscaPor(String nome) {
         return clienteRepository.findByNomeContaining(nome);
-    }
-
-    public Page<Cliente> buscaPor(String nome, Pageable paginacao) {
-        return clienteRepository.findByNomeContaining(nome, paginacao);
     }
 
     @Transactional
@@ -44,13 +40,9 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-
     @Transactional
-    public void removePelo(Integer id) {
-        clienteRepository.deleteById(Long.valueOf(id));
+    public void removePelo(long id) {
+        clienteRepository.deleteById(id);
     }
 
-    public Page<Cliente> buscaCom(Pageable paginacao) {
-        return clienteRepository.findAll(paginacao );
-    }
 }

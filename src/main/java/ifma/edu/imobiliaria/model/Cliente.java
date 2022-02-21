@@ -4,6 +4,7 @@ package ifma.edu.imobiliaria.model;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -13,28 +14,29 @@ import java.util.Objects;
 @Entity
 public class Cliente {
 
-    @Id @GeneratedValue
-    private Integer id;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     @NotNull @NotEmpty @Length(max = 255)
     private String nome;
 
-    @NotNull @NotEmpty @Length(min = 11, max = 11)
+    @NotNull @NotEmpty @Length(max = 11)
     private String cpf;
 
-    @NotEmpty @Length(min = 8, max = 12)
+    @NotEmpty @Length( max = 12)
     private String telefone;
 
     @NotEmpty @Length(max = 100)
     private String email;
 
+    @NotEmpty @Length(max = 100)
     private String dt_nascimento;
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
