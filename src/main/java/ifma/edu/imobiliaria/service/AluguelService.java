@@ -25,8 +25,8 @@ public class AluguelService {
         return aluguelRepository.findAll();
     }
 
-    public Optional<Aluguel> buscaPor(Integer id) {
-        return aluguelRepository.findById(Long.valueOf(id));
+    public Optional<Aluguel> buscaPor(long id) {
+        return aluguelRepository.findById(id);
     }
 
     @Transactional
@@ -35,12 +35,9 @@ public class AluguelService {
     }
 
     @Transactional
-    public void removePelo(Integer id) {
-        aluguelRepository.deleteById(Long.valueOf(id));
+    public void removePelo(long id) {
+        aluguelRepository.deleteById(id);
     }
 
-    public Page<Aluguel> buscaCom(Pageable paginacao) {
-        return aluguelRepository.findAll(paginacao );
-    }
 
 }

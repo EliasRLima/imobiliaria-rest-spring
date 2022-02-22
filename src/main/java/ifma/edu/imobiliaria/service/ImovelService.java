@@ -3,8 +3,6 @@ package ifma.edu.imobiliaria.service;
 import ifma.edu.imobiliaria.model.Imovel;
 import ifma.edu.imobiliaria.repository.ImovelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,16 +21,12 @@ public class ImovelService {
 
     public List<Imovel> todos(){ return  imovelRepository.findAll();}
 
-    public Optional<Imovel> buscaPor(Integer id) {
-        return imovelRepository.findById(Long.valueOf(id));
+    public Optional<Imovel> buscaPor(long id) {
+        return imovelRepository.findById(id);
     }
 
     public List<Imovel> buscaPor(String nome) {
         return imovelRepository.findByEnderecoContaining(nome);
-    }
-
-    public Page<Imovel> buscaPor(String nome, Pageable paginacao) {
-        return imovelRepository.findByEnderecoContaining(nome, paginacao);
     }
 
     @Transactional
@@ -42,11 +36,7 @@ public class ImovelService {
 
 
     @Transactional
-    public void removePelo(Integer id) {
-        imovelRepository.deleteById(Long.valueOf(id));
-    }
-
-    public Page<Imovel> buscaCom(Pageable paginacao) {
-        return imovelRepository.findAll(paginacao );
+    public void removePelo(long id) {
+        imovelRepository.deleteById((id));
     }
 }

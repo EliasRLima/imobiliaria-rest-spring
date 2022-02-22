@@ -14,7 +14,7 @@ public class Imovel {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private long id;
 
     @Length(max = 50)
     private String tipo_imovel;
@@ -32,11 +32,11 @@ public class Imovel {
     private Double valor_aluguel_sug;
     private String obs;
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 

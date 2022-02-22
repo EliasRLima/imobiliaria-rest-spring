@@ -13,14 +13,14 @@ public class Locacao {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private long id;
 
     @NotNull
-    private Integer id_imovel;
+    private long id_imovel;
     @NotNull
-    private Integer id_inquilino;
+    private long id_inquilino;
 
-    private Integer ativo;
+    private long ativo;
 
     @Length(max = 10)
     private String data_fim;
@@ -35,35 +35,35 @@ public class Locacao {
     @Length(max = 255)
     private String obs;
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Integer getId_imovel() {
+    public long getId_imovel() {
         return id_imovel;
     }
 
-    public void setId_imovel(Integer id_imovel) {
+    public void setId_imovel(long id_imovel) {
         this.id_imovel = id_imovel;
     }
 
-    public Integer getId_inquilino() {
+    public long getId_inquilino() {
         return id_inquilino;
     }
 
-    public void setId_inquilino(Integer id_inquilino) {
+    public void setId_inquilino(long id_inquilino) {
         this.id_inquilino = id_inquilino;
     }
 
-    public Integer getAtivo() {
+    public long getAtivo() {
         return ativo;
     }
 
-    public void setAtivo(Integer ativo) {
+    public void setAtivo(long ativo) {
         this.ativo = ativo;
     }
 

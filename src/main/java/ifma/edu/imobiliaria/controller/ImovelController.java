@@ -15,11 +15,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.lang.reflect.Field;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/imoveis")
 public class ImovelController {
 
     private final ImovelService imovelService;
@@ -28,21 +28,15 @@ public class ImovelController {
         this.imovelService = imovelService;
     }
 
-    @GetMapping
-    public Page<Imovel> lista(@RequestParam(required = false) String nome,
-                               @PageableDefault(sort = "id", direction = Sort.Direction.ASC, page = 0, size = 5)
-                                       Pageable paginacao) {
-        if (nome == null) {
-            Page<Imovel> pageImovel = imovelService.buscaCom(paginacao );
-            return pageImovel;
-        } else {
-            Page<Imovel> pageImovel = imovelService.buscaPor(nome, paginacao );
-            return pageImovel;
-        }
+    @RequestMapping( value = "/imoveis", method = RequestMethod.GET)
+    public List<Imovel> lista() {
+        List<Imovel> pageImovel = imovelService.todos();
+        return pageImovel;
+
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Imovel> buscaPor(@PathVariable Integer id) {
+    @RequestMapping( value = "/imoveis/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Imovel> buscaPor(@PathVariable(value = "id") long id) {
         Optional<Imovel> optional = imovelService.buscaPor(id);
 
         if (optional.isPresent()) {
@@ -52,21 +46,14 @@ public class ImovelController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Imovel> cadastro(@RequestBody @Valid Imovel imovel,
-                                            UriComponentsBuilder builder) {
-
-        final Imovel imovelSalvo = imovelService.salva(imovel);
-        final URI uri = builder
-                .path("/imoveis/{id}")
-                .buildAndExpand(imovelSalvo.getId()).toUri();
-
-        return ResponseEntity.created(uri).body(imovelSalvo );
+    @RequestMapping(value = "/imoveis", method =  RequestMethod.POST)
+    public Imovel Post(@RequestBody @Valid Imovel imovel) {
+        return imovelService.salva(imovel);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Imovel> atualiza(@PathVariable Integer id,
-                                            @RequestBody @Valid Imovel imovel) {
+    @RequestMapping(value = "/imoveis/{id}", method =  RequestMethod.PUT)
+    public ResponseEntity<Imovel> Put(@PathVariable(value = "id") long id,
+                                       @RequestBody @Valid Imovel imovel) {
         Optional<Imovel> optional = imovelService.buscaPor(id);
 
         if (optional.isPresent()) {
@@ -78,8 +65,8 @@ public class ImovelController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> remover(@PathVariable Integer id) {
+    @RequestMapping(value = "/imoveis/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> remover(@PathVariable(value = "id") long id) {
         Optional<Imovel> optional = imovelService.buscaPor(id );
 
         if (optional.isPresent()) {
@@ -88,35 +75,5 @@ public class ImovelController {
         }
 
         return ResponseEntity.notFound().build();
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<Imovel> atualizacaoParcial(@PathVariable Integer id,
-                                                      @RequestBody Map<String, Object> campos) {
-        Optional<Imovel> optional = imovelService.buscaPor(id);
-
-        if (optional.isPresent()) {
-            Imovel imovelAtual = optional.get();
-
-            merge(campos, imovelAtual );
-            return this.atualiza(id, imovelAtual );
-
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    private void merge(Map<String, Object> campos, Imovel imoveleDestino) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Imovel imovelOrigem = objectMapper.convertValue(campos, Imovel.class );
-
-        campos.forEach((nomePropriedade, valorPropriedade) -> {
-            Field field = ReflectionUtils.findField(Imovel.class, nomePropriedade );
-            field.setAccessible(true );
-
-            Object novoValor = ReflectionUtils.getField(field, imovelOrigem );
-
-            ReflectionUtils.setField(field, imovelOrigem, novoValor );
-        });
     }
 }

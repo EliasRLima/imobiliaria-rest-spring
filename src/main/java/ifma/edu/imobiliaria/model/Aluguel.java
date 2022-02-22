@@ -13,9 +13,9 @@ public class Aluguel {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private long id;
 
-    private Integer id_locacao;
+    private long id_locacao;
 
     @Length(max = 50) @NotNull
     private String dt_vencimento;
@@ -26,19 +26,19 @@ public class Aluguel {
     @Length(max = 255)
     private String obs;
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Integer getId_locacao() {
+    public long getId_locacao() {
         return id_locacao;
     }
 
-    public void setId_locacao(Integer id_locacao) {
+    public void setId_locacao(long id_locacao) {
         this.id_locacao = id_locacao;
     }
 
