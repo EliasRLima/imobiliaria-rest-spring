@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ifma.edu.imobiliaria.model.Cliente;
 import ifma.edu.imobiliaria.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
@@ -22,6 +24,7 @@ public class ClienteController {
     }
 
     @RequestMapping( value = "/clientes", method = RequestMethod.GET)
+    @Cacheable(value = "listaDeClientes")
     public List<Cliente> lista() {
         List<Cliente> pageClientes = clienteService.todos();
        return pageClientes;
@@ -40,11 +43,13 @@ public class ClienteController {
     }
 
     @RequestMapping(value = "/clientes", method =  RequestMethod.POST)
+    @CacheEvict(value = "listaDeClientes", allEntries = true)
     public Cliente Post(@RequestBody @Valid Cliente cliente) {
         return clienteService.salva(cliente);
     }
 
     @RequestMapping(value = "/clientes/{id}", method =  RequestMethod.PUT)
+    @CacheEvict(value = "listaDeClientes", allEntries = true)
     public ResponseEntity<Cliente> Put(@PathVariable(value = "id") long id,
                                             @RequestBody @Valid Cliente cliente) {
         Optional<Cliente> optional = clienteService.buscaPor(id);
@@ -59,6 +64,7 @@ public class ClienteController {
     }
 
     @RequestMapping(value = "/clientes/{id}", method = RequestMethod.DELETE)
+    @CacheEvict(value = "listaDeClientes", allEntries = true)
     public ResponseEntity<?> remover(@PathVariable(value = "id") long id) {
         Optional<Cliente> optional = clienteService.buscaPor(id );
 
